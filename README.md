@@ -2,6 +2,9 @@
 
 **Cidadão Conectado** é uma plataforma digital que permite aos cidadãos de Ananindeua participar ativamente em propostas e decisões que impactem a qualidade de vida urbana. A plataforma oferece um espaço para submissão de propostas, votação e acompanhamento das ideias mais discutidas pela comunidade.
 
+## Diagrama de Classe
+![Diagrama de Classe - Cidadão Conectado](images/diagrama_classe_cidadao_conectado.png)
+
 ## Checklist do MVP - Cidadão Conectado
 
 ### 1. Cadastro e Login de Usuários
