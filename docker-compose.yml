@@ -1,0 +1,21 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: cidadao_conectado_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cidadao_conectado
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - cidadao_conectado_network
+
+volumes:
+  db_data:
+
+networks:
+  cidadao_conectado_network:
