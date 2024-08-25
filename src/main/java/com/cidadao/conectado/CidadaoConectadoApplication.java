@@ -2,12 +2,13 @@ package com.cidadao.conectado;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-public class CidadaoConectadoApplication {
-
+@ComponentScan(basePackages = "com.cidadao.conectado.modules")
+public class Application {
 	public static void main(String[] args) {
-		SpringApplication.run(CidadaoConectadoApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
-
 }
+
