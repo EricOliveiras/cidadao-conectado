@@ -6,7 +6,6 @@ public class UserResponse {
     private Long id;
     private String name;
     private String email;
-    private String password;
     private Timestamp registerDate;
 
     public Long getId() {
@@ -31,14 +30,6 @@ public class UserResponse {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Timestamp getRegisterDate() {
