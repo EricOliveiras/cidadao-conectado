@@ -2,6 +2,8 @@ package com.cidadao.conectado.modules.category;
 
 import com.cidadao.conectado.modules.proposal.Proposal;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,9 +11,10 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
     @ManyToMany(mappedBy = "categories")
-    private List<Proposal> proposals;
+    private List<Proposal> proposals = new ArrayList<>();
 
     public Category() {
     }
