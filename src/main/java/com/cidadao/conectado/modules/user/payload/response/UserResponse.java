@@ -1,11 +1,14 @@
 package com.cidadao.conectado.modules.user.payload.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Timestamp;
 
 public class UserResponse {
     private Long id;
     private String name;
     private String email;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private Timestamp registerDate;
 
     public Long getId() {
