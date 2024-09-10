@@ -1,12 +1,11 @@
 package com.cidadao.conectado.modules.proposal;
 
-import com.cidadao.conectado.modules.category.Category;
+import com.cidadao.conectado.modules.category.CategoryEnum;
 import com.cidadao.conectado.modules.user.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 public class Proposal {
@@ -15,13 +14,9 @@ public class Proposal {
     private Long id;
     private String title;
     private String description;
-    @ManyToMany
-    @JoinTable(
-            name = "proposal_category",
-            joinColumns = @JoinColumn(name = "proposal_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private List<Category> categories;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    private CategoryEnum categoryEnum;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -32,11 +27,11 @@ public class Proposal {
     public Proposal() {
     }
 
-    public Proposal(Long id, String title, String description, List<Category> categories, User user, Timestamp dateSubmission) {
+    public Proposal(Long id, String title, String description, CategoryEnum categoryEnum, User user, Timestamp dateSubmission) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.categories = categories;
+        this.categoryEnum = categoryEnum;
         this.user = user;
         this.dateSubmission = dateSubmission;
     }
@@ -65,12 +60,12 @@ public class Proposal {
         this.description = description;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public CategoryEnum getCategory() {
+        return categoryEnum;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setCategory(CategoryEnum categoryEnum) {
+        this.categoryEnum = categoryEnum;
     }
 
     public User getUser() {
