@@ -1,29 +1,38 @@
 package com.cidadao.conectado.modules.proposal;
 
 import com.cidadao.conectado.config.error.CustomException;
+import com.cidadao.conectado.modules.category.CategoryEnum;
 import com.cidadao.conectado.modules.proposal.payload.request.CreateProposalRequest;
 import com.cidadao.conectado.modules.proposal.payload.response.ProposalResponse;
+import com.cidadao.conectado.modules.user.User;
+import com.cidadao.conectado.modules.user.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class ProposalServiceImpl implements IProposalService {
     private final ProposalRepository proposalRepository;
     private final ProposalMapper proposalMapper;
+    private final UserRepository userRepository;
 
-    public ProposalServiceImpl(ProposalRepository proposalRepository, ProposalMapper proposalMapper) {
+    public ProposalServiceImpl(ProposalRepository proposalRepository, ProposalMapper proposalMapper, UserRepository userRepository) {
         this.proposalRepository = proposalRepository;
         this.proposalMapper = proposalMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
     public ProposalResponse create(CreateProposalRequest proposalRequest) {
+        User user = readUserById(proposalRequest.getUserId());
         Proposal proposal = proposalMapper.toEntity(proposalRequest);
+        proposal.setUser(user);
         return proposalMapper.toDto(proposalRepository.save(proposal));
     }
 
@@ -61,6 +70,13 @@ public class ProposalServiceImpl implements IProposalService {
         return proposalRepository.findById(id)
                 .orElseThrow(
                         () -> new CustomException("proposal not found", HttpStatus.NOT_FOUND)
+                );
+    }
+
+    private User readUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(
+                        () -> new CustomException("user not found", HttpStatus.NOT_FOUND)
                 );
     }
 }
