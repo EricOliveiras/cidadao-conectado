@@ -1,7 +1,6 @@
 package com.cidadao.conectado.modules.proposal;
 
 import com.cidadao.conectado.config.error.CustomException;
-import com.cidadao.conectado.modules.category.CategoryEnum;
 import com.cidadao.conectado.modules.proposal.payload.request.CreateProposalRequest;
 import com.cidadao.conectado.modules.proposal.payload.response.ProposalResponse;
 import com.cidadao.conectado.modules.user.User;
@@ -60,10 +59,13 @@ public class ProposalServiceImpl implements IProposalService {
     }
 
     @Override
-    public boolean delete(Long id) {
-        Proposal proposal = readById(id);
-        proposalRepository.delete(proposal);
-        return true;
+    public String delete(Long id) {
+        return proposalRepository.findById(id)
+                .map(proposal -> {
+                    proposalRepository.delete(proposal);
+                    return "proposal successfully deleted.";
+                })
+                .orElseThrow(() -> new CustomException("proposal not found", HttpStatus.NOT_FOUND));
     }
 
     private Proposal readById(Long id) {
