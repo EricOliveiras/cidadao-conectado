@@ -10,5 +10,5 @@ public interface IProposalService {
     ProposalResponse read(Long id);
     List<ProposalResponse> readAll();
     ProposalResponse update(Long id, CreateProposalRequest proposalRequest);
-    boolean delete(Long id);
+    String delete(Long id);
 }
